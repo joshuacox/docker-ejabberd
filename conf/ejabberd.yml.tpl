@@ -165,7 +165,7 @@ ldap_base: "{{ env['EJABBERD_LDAP_BASE'] }}"
 {%- if env['EJABBERD_LDAP_UIDS'] %}
 ldap_uids:
 {%- for ldap_uid in env['EJABBERD_LDAP_UIDS'].split() %}
-  "{{ ldap_uid.split(':')[0] }}": "{{ ldap_uid.split(':')[1] }}"
+  - "{{ ldap_uid.split(':')[0] }}": "{{ ldap_uid.split(':')[1] }}"
 {%- endfor %}
 {%- endif %}
 
