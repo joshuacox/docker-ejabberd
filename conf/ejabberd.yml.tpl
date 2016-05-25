@@ -133,6 +133,21 @@ allow_multiple_connections: true
 
 {%- if 'ldap' in env.get('EJABBERD_AUTH_METHOD', 'internal').split() %}
 
+{%- if env['EJABBERD_LDAP_SHARED_ROSTER'] %}
+mod_shared_roster_ldap:
+  ldap_rfilter: "(&(objectClass=zimbraAccount)(!(zimbraIsSystemAccount=TRUE)))"
+  ldap_groupattr: "company"
+  ldap_gfilter: "(company=%g)"
+  ldap_groupdesc: "company"
+  ldap_memberattr: "uid"
+  ldap_ufilter: "(uid=%u)"
+  ldap_userdesc: "cn"
+  ldap_auth_check: off
+  ldap_user_cache_validity: 60
+  ldap_group_cache_validity: 60
+{%- endif %}
+
+
 ldap_servers:
 {%- for ldap_server in env.get('EJABBERD_LDAP_SERVERS', 'internal').split() %}
   - "{{ ldap_server }}"
