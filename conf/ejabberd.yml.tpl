@@ -135,13 +135,27 @@ allow_multiple_connections: true
 
 {%- if env['EJABBERD_LDAP_SHARED_ROSTER'] %}
 mod_shared_roster_ldap:
-  ldap_rfilter: "(&(objectClass=zimbraAccount)(!(zimbraIsSystemAccount=TRUE)))"
-  ldap_groupattr: "company"
-  ldap_gfilter: "(company=%g)"
-  ldap_groupdesc: "company"
-  ldap_memberattr: "uid"
-  ldap_ufilter: "(uid=%u)"
-  ldap_userdesc: "cn"
+{%- if env['EJABBERD_LDAP_RFILTER'] %}
+  ldap_rfilter: "{{ env['EJABBERD_LDAP_RFILTER'] }}"
+{%- endif %}
+{%- if env['EJABBERD_LDAP_GROUPATTR'] %}
+  ldap_groupattr: "{{ env['EJABBERD_LDAP_GROUPATTR'] }}"
+{%- endif %}
+{%- if env['EJABBERD_LDAP_GFILTER'] %}
+  ldap_gfilter: "{{ env['EJABBERD_LDAP_GFILTER'] }}"
+{%- endif %}
+{%- if env['EJABBERD_LDAP_GROUPDESC'] %}
+  ldap_groupdesc: "{{ env['EJABBERD_LDAP_GROUPDESC'] }}"
+{%- endif %}
+{%- if env['EJABBERD_LDAP_MEMBERATTR'] %}
+  ldap_memberattr: "{{ env['EJABBERD_LDAP_MEMBERATTR'] }}"
+{%- endif %}
+{%- if env['EJABBERD_LDAP_UFILTER'] %}
+  ldap_ufilter: "{{ env['EJABBERD_LDAP_UFILTER'] }}"
+{%- endif %}
+{%- if env['EJABBERD_LDAP_USERDESC'] %}
+  ldap_userdesc: "{{ env['EJABBERD_LDAP_USERDESC'] }}"
+{%- endif %}
   ldap_auth_check: off
   ldap_user_cache_validity: 60
   ldap_group_cache_validity: 60
